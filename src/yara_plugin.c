@@ -918,7 +918,7 @@ RZ_IPI RzCmdStatus yara_command_metadata_remove_handler(RzCore *core, int argc, 
 	return RZ_CMD_STATUS_OK;
 }
 
-RZ_IPI bool yara_plugin_init(RzCore *core) {
+RZ_IPI bool yara_plugin_init(RzCore *core, void **user_data) {
 	yara_metadata = rz_yara_metadata_new();
 	if (!yara_metadata) {
 		YARA_ERROR("cannot allocate metadata hashmap\n");
@@ -1006,7 +1006,7 @@ RZ_IPI bool yara_plugin_init(RzCore *core) {
 	return true;
 }
 
-RZ_IPI bool yara_plugin_fini(RzCore *core) {
+RZ_IPI bool yara_plugin_fini(RzCore *core, void *user_data) {
 	yr_finalize();
 	ht_sp_free(yara_metadata);
 	RzCmd *cmd = core->rcmd;
